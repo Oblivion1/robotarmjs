@@ -1,6 +1,6 @@
 /**
  * The robot arm constructor
- * 
+ *
  * @param {HTMLCanvasElement} canvas The canvas element used for drawing the robot arm on.
  */
 var RobotArm = function (canvas) {
@@ -45,13 +45,13 @@ var RobotArm = function (canvas) {
     local.blocks.availableColors = ["red", "blue", "green", "white"];
     local.blocks.map = null;
     local.blocks.held = null;
-    
+
     // State variables
     local.state = {};
     // Arm
     local.state.arm = {};
     local.state.arm.position = 0;
-    // Blocks 
+    // Blocks
     local.state.blocks = {};
     local.state.blocks.map = null;
     local.state.blocks.held = null;
@@ -81,7 +81,7 @@ var RobotArm = function (canvas) {
         // Clear surface to start a new frame
         ctx.beginPath();
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        
+
         // Draw the background
         ctx.fillStyle = local.settings.backgroundColor;
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -295,7 +295,7 @@ var RobotArm = function (canvas) {
 
     /**
      * Moves the robot arm one position to the right if possible
-     * 
+     *
      * @returns
      */
     self.moveRight = function () {
@@ -314,7 +314,7 @@ var RobotArm = function (canvas) {
     };
     /**
      * Returns the color of the held block, if any
-     * @returns {null|string} The name of the color of the block that is being held 
+     * @returns {null|string} The name of the color of the block that is being held
      */
     self.scan = function () {
         return local.state.blocks.held || null;
@@ -323,12 +323,15 @@ var RobotArm = function (canvas) {
      * Grabs a block from beneath, if possible
      */
     self.grab = function () {
-        local.animationList.push(local.grabAnimation);
-        if (local.state.blocks.map[local.state.arm.position] && local.state.blocks.map[local.state.arm.position].length > 0) {
-            local.state.blocks.held = local.state.blocks.map[local.state.arm.position][local.state.blocks.map[local.state.arm.position].length - 1];
-            var row = local.state.blocks.map[local.state.arm.position];
-            var blocksInRow = row.length;
-            row.splice(blocksInRow - 1, 1);
+
+        if (local.state.blocks.held == null) {
+            local.animationList.push(local.grabAnimation);
+            if (local.state.blocks.map[local.state.arm.position] && local.state.blocks.map[local.state.arm.position].length > 0) {
+                local.state.blocks.held = local.state.blocks.map[local.state.arm.position][local.state.blocks.map[local.state.arm.position].length - 1];
+                var row = local.state.blocks.map[local.state.arm.position];
+                var blocksInRow = row.length;
+                row.splice(blocksInRow - 1, 1);
+            }
         }
     };
     /**
@@ -405,28 +408,28 @@ var RobotArm = function (canvas) {
             case "exercise 11":
                 self.setMap([
                     [],
-                    ["white"],
-                    ["red"],
-                    ["red"],
-                    ["blue"],
-                    ["red"],
-                    ["green"],
-                    ["blue"],
-                    ["green"],
-                    ["green"]
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]]
                 ]);
                 break;
             case "exercise 12":
                 self.setMap([
-                    ["green"],
-                    ["red"],
-                    ["green"],
-                    ["white"],
-                    ["green"],
-                    ["blue"],
-                    ["green"],
-                    ["blue"],
-                    ["green"],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
+                    [local.blocks.availableColors[Math.floor(Math.random() * local.blocks.availableColors.length)]],
                 ]);
                 break;
             case "exercise 13":
@@ -476,9 +479,9 @@ var RobotArm = function (canvas) {
         }
     };
 
-    self.randomLevel = function (columns, rows) {
-		columns = columns ? columns : self.columns;
-		rows = rows ? rows : self.rows;
+    self.randomLevel = function (columns) {
+		columns = columns || 5;
+		rows = 6;
 
 		var map = [];
 		for (var c = 0; c < columns; c++) {

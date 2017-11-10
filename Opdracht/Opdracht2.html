@@ -10,29 +10,19 @@
 
             // Either use loadLevel or randomLevel to create a start scene
             robotArm.loadLevel("exercise 2");
-
+            var l = 0;
             // My instructions come here
 
-            robotArm.grab ()
-            for (var i = 0; i <= 8; i++){
-                robotArm.moveRight ()
-            }
-            robotArm.drop ()
-            for (var i = 0; i <= 4; i++){
-                robotArm.moveLeft ()
-            }
-            robotArm.grab ()
-            for (var i = 0; i <= 4; i++) {
-               robotArm.moveRight ()
-            }
-            robotArm.drop ()
-            robotArm.moveLeft ()
-            robotArm.moveLeft ()
-            robotArm.grab ()
-            robotArm.moveRight ()
-            robotArm.moveRight ()
-            robotArm.drop ()
-
+            for ( var k = 0; k < 3;k++ ){
+              robotArm.grab()
+              for (var l=l; l < 9; l++) {
+                robotArm.moveRight()
+              }
+              robotArm.drop()
+              for (var l; l > 4;l--){
+                robotArm.moveLeft()
+              }
+              }
             // Call run to run the animations
             robotArm.run();
         </script>
